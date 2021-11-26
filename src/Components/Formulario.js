@@ -1,14 +1,19 @@
 import React, {useState} from "react";
+import { CalcularTotal } from "../helpers";
+export { CalcularTotal } from "../helpers"
 
-function Formulario(){
+const Formulario = (props) =>{
 
-    const [cantidad, setCantidad] = useState('');
-    const [plazo, setPlazo] = useState(0)
+    const {cantidad, setCantidad, plazo, setPlazo, total, setTotal} = props
+
     const [error, setError] = useState(false)
+
 
     const calcularPrestamo = e =>{
         e.preventDefault();
 
+
+        //Validacion
         if (plazo === 0 || error === '' ){
             setError(true)
             return;
@@ -16,6 +21,11 @@ function Formulario(){
         }
 
         setError(false)
+
+        const total = CalcularTotal(cantidad, plazo);
+
+        setTotal(total)
+
 
     }
 
