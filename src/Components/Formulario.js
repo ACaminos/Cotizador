@@ -4,7 +4,7 @@ export { CalcularTotal } from "../helpers"
 
 const Formulario = (props) =>{
 
-    const {cantidad, setCantidad, plazo, setPlazo, total, setTotal} = props
+    const {cantidad, setCantidad, plazo, setPlazo, total, setTotal, setCargando} = props
 
     const [error, setError] = useState(false)
 
@@ -17,14 +17,21 @@ const Formulario = (props) =>{
         if (plazo === 0 || error === '' ){
             setError(true)
             return;
-
         }
 
         setError(false)
 
-        const total = CalcularTotal(cantidad, plazo);
+        //Se habilita el spinner
+        setCargando(true)
 
-        setTotal(total)
+        setTimeout( () => {
+            const total = CalcularTotal(cantidad, plazo);
+
+            setTotal(total)
+
+        //Se deshabilita el spinner
+        setCargando(false)
+        }, 3000)
 
 
     }

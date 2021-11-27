@@ -3,21 +3,30 @@ import Formulario from "./Components/Formulario";
 import Header from "./Components/Header";
 import Mensaje from "./Components/Mensaje";
 import Resultado from "./Components/Resultado";
+import Spinner from "../src/Components/Spinner"
 
 function App() {
 
   const [cantidad, setCantidad] = useState('');
   const [plazo, setPlazo] = useState(0)
-  const [error, setError] = useState(false)
   const [total, setTotal] = useState(0);
+  const [cargando, setCargando] = useState(false)
 
   let componente;
 
-  if(total === 0){
+  if(cargando){
+    componente = <Spinner/>
+  }
+
+  else if(total === 0){
     componente = <Mensaje/>
   }
   else{
-    componente = <Resultado/>
+    componente = <Resultado
+      total = { total }
+      plazo = { plazo }
+      cantidad = { cantidad }
+    />
   }
 
 
@@ -37,6 +46,7 @@ function App() {
           setPlazo = { setPlazo }
           total = {total}
           setTotal = {setTotal}
+          setCargando = { setCargando }
         />
 
         <div className="mensajes">
